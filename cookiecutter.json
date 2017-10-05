@@ -7,6 +7,7 @@
   "project_url": "https://domain.tld",
   "project_sources_url": "https://domain.tld",
   "project_short_description": "Project short description.",
+  "project_description": "Project detailed description.",
   "version": "0.1.0",
   "license": [
       "BSD license",
