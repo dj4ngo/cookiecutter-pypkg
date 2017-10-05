@@ -12,20 +12,27 @@ def remove_readonly(remove, path, _):
     remove(path)
 
 
-def remove_dir(path):
+def rm(path):
     path = os.path.join(PROJECT_DIRECTORY, path)
 
-    if not os.path.isdir(path):
-        raise ValueError('{} is not a directory'.format(path))
+    if not os.path.exists(path):
+        raise ValueError('{} does not exists'.format(path))
 
-    shutil.rmtree(path, onerror=remove_readonly)
-
+    if os.path.isdir(path):
+        shutil.rmtree(path, onerror=remove_readonly)
+    else:
+        os.remove(path)
     parent = os.path.dirname(path)
 
     if os.listdir(parent) == []:
-        remove_dir(parent)
+        rm(parent)
 
 
 if __name__ == '__main__':
-    if 'n' == '{{ cookiecutter.build_rpm }}':
-        remove_dir('packaging/rpm')
+    if 'None' == '{{ cookiecutter.rpm_packaging }}':
+        rm('packaging/rpm')
+    else:
+        if 'Using setuptools' !=  '{{ cookiecutter.rpm_packaging }}':
+            rm('packaging/rpm/{{ cookiecutter.project_name }}.sh')
+        if 'Using a spec file' != '{{ cookiecutter.rpm_packaging }}':
+            rm('packaging/rpm/{{ cookiecutter.project_name }}.spec')

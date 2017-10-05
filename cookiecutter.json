@@ -13,9 +13,13 @@
       "MIT license",
       "None"
   ],
+  "rpm_packaging": [
+      "None",
+      "Using setuptools",
+      "Using a spec file"
+  ],
   "test_runner": [
       "unittest",
       "pytest"
-  ],
-  "build_rpm": "n"
+  ]
 }
